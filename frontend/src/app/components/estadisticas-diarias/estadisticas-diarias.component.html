@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col s2">
+    <div class="collection">
+      <a class="collection-item active" href="#" (click)="getEstadisticasDiariasPorMes(0)" onclick="changeMes(0)">Enero</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(1)" onclick="changeMes(1)">Febrero</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(2)" onclick="changeMes(2)">Marzo</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(3)" onclick="changeMes(3)">Abril</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(4)" onclick="changeMes(4)">Mayo</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(5)" onclick="changeMes(5)">Junio</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(6)" onclick="changeMes(6)">Julio</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(7)" onclick="changeMes(7)">Agosto</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(8)" onclick="changeMes(8)">Septiembre</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(9)" onclick="changeMes(9)">Octubre</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(10)" onclick="changeMes(10)">Noviembre</a>
+      <a class="collection-item" href="#" (click)="getEstadisticasDiariasPorMes(11)" onclick="changeMes(11)">Diciembre</a>
+    </div>
+  </div>
+  <div class="col s10">
+    <div id="estDiarias" class="col s12 white">
+      <form #estDiariaForm="ngForm" (ngSubmit)="addEstadisticaDiaria(estDiariaForm)">
+        <input type="hidden" id="id" name="_id" #_id="ngModel" [(ngModel)]="estDiariaService.selectedEstadistica._id">
+        <input type="hidden" id="mes" name="mes" #mes="ngModel" [(ngModel)]="estDiariaService.selectedEstadistica.mes">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Dia</th>
+              <th>Apostado</th>
+              <th>Ganado</th>
+              <th>Profit</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let estDiaria of estDiariaService.estDiarias">
+              <td>{{ estDiaria.dia }}</td>
+              <td>{{ estDiaria.apostado }}</td>
+              <td>{{ estDiaria.ganado }}</td>
+              <td [ngClass]="{'green-text':estDiaria.profit > 0,'red-text':estDiaria.profit < 0}">
+                {{ estDiaria.profit }}
+              </td>
+              <td>
+                <a (click)="editEstadisticaDiaria(estDiaria)">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a (click)="deleteEstadisticaDiaria(estDiaria._id)">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="number" id="dia" name="dia" #dia="ngModel" min="1" max="31" [(ngModel)]="estDiariaService.selectedEstadistica.dia"></td>
+              <td><input type="number" id="apostado" name="apostado" #apostado="ngModel" [(ngModel)]="estDiariaService.selectedEstadistica.apostado"></td>
+              <td><input type="number" id="ganado" name="ganado" #ganado="ngModel" [(ngModel)]="estDiariaService.selectedEstadistica.ganado"></td>
+              <td></td>
+              <td>
+                <div class="input-field col s12">
+                  <button class="btn right" (click)="resetForm(estDiariaForm)">Borrar</button>
+                  <button class="btn left">Guardar</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
